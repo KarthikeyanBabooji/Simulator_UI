@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-12" [class.col-lg-6]="!expand.givenYear">
+    <mat-card class="chart-card">
+      <mat-card-content>
+          <button type="button" class="btn btn-sm btn-outline-info float-right" (click)="expandToggle('givenYear')">
+            <fa-icon [icon]="faExpandAlt"></fa-icon>
+          </button>
+        <chart [type]="type" [data]="data" [options]="options"></chart>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-12" [class.col-lg-6]="!expand.tenant">
+    <mat-card class="chart-card">
+      <mat-card-content>
+        <button type="button" class="btn btn-sm btn-outline-info float-right" (click)="expandToggle('tenant')">
+          <fa-icon [icon]="faExpandAlt"></fa-icon>
+        </button>
+        <chart
+          [type]="type"
+          [data]="tenantData"
+          [options]="tenantOptions"
+        ></chart>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

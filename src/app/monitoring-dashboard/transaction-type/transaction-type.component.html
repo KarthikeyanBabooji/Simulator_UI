@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-12" [class.col-lg-6]="!expand.credit">
+        <mat-card class="chart-card">
+            
+            <mat-card-content>
+                <button type="button" class="btn btn-sm btn-outline-info float-right" (click)="expandToggle('credit')">
+                    <fa-icon [icon]="faExpandAlt"></fa-icon>
+                  </button>
+        <chart [type]="typePie" [data]="creditData" [options]="creditOptions"></chart>
+        </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="col-12" [class.col-lg-6]="!expand.debit">
+        <mat-card class="chart-card">
+            
+            <mat-card-content>
+                <button type="button" class="btn btn-sm btn-outline-info float-right" (click)="expandToggle('debit')">
+                    <fa-icon [icon]="faExpandAlt"></fa-icon>
+                  </button>
+        <chart [type]="typePie" [data]="debitData" [options]="debitOptions"></chart>
+        </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12" [class.col-lg-6]="!expand.book">
+        <mat-card class="chart-card">
+            
+            <mat-card-content>
+                <button type="button" class="btn btn-sm btn-outline-info float-right" (click)="expandToggle('book')">
+                    <fa-icon [icon]="faExpandAlt"></fa-icon>
+                  </button>
+        <chart [type]="typePie" [data]="bookData" [options]="bookOptions"></chart>
+        </mat-card-content>
+        </mat-card>
+    </div>
+</div>

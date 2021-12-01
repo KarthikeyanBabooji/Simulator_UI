@@ -1,0 +1,37 @@
+{
+    "containerDefinitions": [
+      {
+  
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "STACKNAME",
+            "awslogs-region": "us-east-1",
+            "awslogs-stream-prefix": "ecs"
+          }
+        },
+        "portMappings": [
+          {
+            "containerPort": CONTAINERPORT
+          }
+        ],
+        "environment": [
+          {
+            "name": "fargate",
+            "value": "true"
+          }
+        ],
+        "image": "ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/STACKNAME:IMAGETAG",
+        "name": "STACKNAME"
+      }
+    ],
+    "memory": "MEMORY",
+    "cpu": "CPU",
+    "executionRoleArn": "arn:aws:iam::ACCOUNT:role/STACKNAME-ecs_task_execution_role",
+    "taskRoleArn": "arn:aws:iam::ACCOUNT:role/STACKNAME-task_role",
+    "family": "STACKNAME",
+    "requiresCompatibilities": [
+      "FARGATE"
+    ],
+    "networkMode": "awsvpc"
+  }

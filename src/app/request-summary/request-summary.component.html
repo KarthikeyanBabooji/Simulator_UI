@@ -1,0 +1,275 @@
+<div class="container bg-light">
+  <div class="row mx-0 mt-3">
+    <div class="col-12 col-md-12 p-0">
+      <h4 class="text-header m-0">ORCHESTRATION DASHBOARD</h4>
+    </div>
+  </div>
+  <!--  -->
+  <form [formGroup]="searchCriteria" class="login-container" (ngSubmit)="submit()">
+    <div class="row m-0 bg-white rounded py-2 input-group box-shadow">
+      <label for="" style="font-weight: bold; margin-top: 10px;padding: 0px 10px;">Flow Name</label>
+        <div class="col-12 col-md-2 px-1">
+         
+          <input class="form-control ml-3 bg-light" type="text" formControlName="transactionId" placeholder="Enter Flow Name" />
+        </div>
+        
+        <!-- <div class="col-12 col-md-2 px-1">
+          <input class="form-control ml-2 bg-light" type="text" placeholder="Date Range" />
+        </div> -->
+        
+        <!-- <div class="col-12 col-md-2 px-1">
+          <input class="form-control ml-2 bg-light" type="Date" formControlName="startDate" placeholder="Date Range"/>
+        </div> -->
+        <div class="col-12 d-flex col-md-1 px-1 d-flex justify-content-end">
+          <div class="">
+            <!-- <label for="">Create Flow</label> 
+            <i class="fa fa-plus mx-auto"></i> -->
+
+          <!-- <button class="rounded-circle p-2 bg-primary text-white search-icon mx-right mx-md-auto text-center" type="submit">
+              <i class="fa fa-add mx-auto"></i>
+             </button>  -->
+                     </div>
+        </div>
+      
+    </div>
+    <div class="m-0  bg-white rounded py-2 input-group box-shadow">
+      <label for="" style="font-weight: bold; margin-top: 10px;padding: 0px 10px;">Select Service</label>
+
+      <mat-form-field >
+        <mat-label>Selct service</mat-label>
+        <mat-select [(value)]="selectedValue" multiple>
+          <mat-option value="Validation">Validation</mat-option>
+          <mat-option value="Compliance">Compliance</mat-option>
+          <mat-option value="Transformation">Transformation</mat-option>
+        </mat-select>
+      </mat-form-field>
+      {{selectedValue}}
+
+    </div>
+    <div class="m-0 bg-white rounded py-2 input-group box-shadow">
+      <button class="btn btn-light" style="margin-left: 50px;padding: 10px 40px;">Submit</button>
+    </div>
+  </form>
+  <!-- </form> -->
+
+  <!-- <nav class="navbar navbar-light bg-light mt-3">
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search by Flow Name" aria-label="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav> -->
+
+<!-- <div class="form-group form-inline">
+  Search By CorelationId: <input class="form-control ml-2" type="text"  />
+
+</div> -->
+<!-- <div class="row m-0 bg-white rounded py-2 input-group box-shadow"> -->
+<div class="row m-0 bg-white rounded p-3 input-group box-shadow rounded mt-3">
+  <div class="col-12 col-md-12 p-0">
+    <table class="table table-striped table-bordered" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+         [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+         <thead class="bg-table-header">     
+          <tr style="text-align: center;">
+            <th>
+                <mfDefaultSorter by="transactionId">S.No</mfDefaultSorter>
+            </th>
+            <th >
+                <mfDefaultSorter by="correlationId">Flow Name</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="msgId">Applicable Service</mfDefaultSorter>
+            </th>
+            
+            
+            <th>
+              <mfDefaultSorter by="status"> Created Date/Time</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="status"> Modified Date/Time</mfDefaultSorter>
+            </th>
+      
+        </tr>
+        </thead>
+        <!-- <tbody>
+        <tr *ngFor="let summeryDate of mf.data"  >
+            <td  style="color: #0056b3;
+            text-decoration: underline;cursor: pointer;" (click)="getDetails(summeryDate,'txnId')"
+              matTooltip="Navigate to workFlow Details"
+            >{{summeryDate.transactionId}}</td>
+            <td style="color: #0056b3;
+            text-decoration: underline;cursor: pointer;"(click)="getDetails(summeryDate,'coId')"
+               matTooltip="Navigate to Audit-Trail Details"
+            >{{summeryDate.correlationId}}</td>
+            <td>{{summeryDate.msgId}}</td>
+           
+            
+            <td>{{summeryDate.startTime}}</td>
+            <td>{{summeryDate.endTime}}</td>
+            <td>{{calculateDiff(summeryDate.startTime,summeryDate.endTime)}}</td>
+            <td>
+              <span *ngIf="summeryDate.requestStatus==='FAILURE' || summeryDate.requestStatus==='failure' "  placement="left"  tooltip="Failure Service: {{summeryDate.failureServiceNames}}"><i class="fa fa-exclamation-circle "style="font-size:20px;color:#4F0000" aria-hidden="true"></i></span>
+              <span *ngIf="summeryDate.requestStatus!=='FAILURE' && summeryDate.requestStatus!=='failure'"> {{summeryDate.requestStatus| uppercase }}</span>
+             
+             
+
+            </td>
+           
+        </tr>
+       
+        </tbody> -->
+        <tbody>
+          <tr style="text-align: center;">
+            <td>01</td>
+            <td>Incoming Payments</td>
+            <td>Validation, Compliance</td>
+            <td>30/11/2021, 11:5:25 AM</td>
+            <td>30/11/2021, 11:5:25 AM</td>
+          </tr>
+          <tr style="text-align: center;">
+            <td>02</td>
+            <td>Outgoing Payments</td>
+            <td>Compliance, Transformation</td>
+            <td>01/12/2021, 3:30:25 PM</td>
+            <td>01/12/2021, 3:30:25 PM</td>
+          </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="9">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+  </div>
+  
+</div>
+</div>
+
+
+
+<!-- <div style="margin-top: -28px;/* position: initial; *//* width: 121px; *//* height: 46px; *//* left: 244px; *//* top: 126px; */font-family: PT Sans;font-style: normal;font-weight: normal;font-size: 33px;line-height: 50px;color: #00213B;">
+      Search 
+  </div>
+<div style="
+font-family: PT Sans;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 30px;
+/* identical to bo">
+You can search by transaction ID and correlation ID 
+ </div> 
+<mat-card>
+<mat-card-content>
+    <form [formGroup]="searchCriteria" class="login-container" (ngSubmit)="submit()">
+        <div class="row">
+            <div class="col-md-3">
+                    <mat-form-field appearance="outline" style="
+                    width: 259px;
+                ">
+                            <mat-label>Corelation Id</mat-label>
+                            <input matInput placeholder="Corelation ID"  formControlName="corelationId">
+                    
+                    </mat-form-field>
+                     
+                 </div>
+                    <div class="col-md-3">
+                            <mat-form-field appearance="outline" style="
+                            width: 259px;
+                        " >
+                                    <mat-label>Transaction Id</mat-label>
+                                    <input matInput placeholder="Transaction ID" formControlName="transactionId">
+                                 
+                                </mat-form-field>
+                        </div>
+
+                        <div class="col-md-4">
+                                <mat-form-field appearance="fill" style="
+                                width: 259px;
+                            " >
+                                        <mat-label>Enter a date range</mat-label>
+                                        <mat-date-range-input [rangePicker]="picker">
+                                          <input matStartDate placeholder="Start date" formControlName="startDate">
+                                          <input matEndDate placeholder="End date" formControlName="endDate">
+                                        </mat-date-range-input>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-date-range-picker #picker></mat-date-range-picker>
+                                      </mat-form-field>
+                            </div>  
+                           <div class="col-md-2"> 
+                              <button type="submit" class="btn btn-primary" >Search</button>
+                              &nbsp;&nbsp;&nbsp;
+                           <button  class="btn btn-primary" (click)="reset()">Reset</button>
+                          </div>
+            </div>
+        </form>      
+<hr>
+
+<div class="row">
+    <table class="table table-responsive table-striped table-bordered table-hover" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+           [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+           <thead>     
+          <tr>
+           
+            <th >
+                <mfDefaultSorter by="transactionId">Txn ID</mfDefaultSorter>
+            </th>
+            <th >
+                <mfDefaultSorter by="correlationId">Correlation Id</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="msgId">Msg ID</mfDefaultSorter>
+            </th>
+            
+            <th>
+                <mfDefaultSorter by="startTime">Start Date/Time</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="endTime">End Date/Time</mfDefaultSorter>
+              </th>
+              <th> 
+                <mfDefaultSorter by="">Time taken(in sec)</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="requestStatus">Request Status</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="failureServiceNames">Service Name (failure service)</mfDefaultSorter>
+              </th>
+          
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let summeryDate of mf.data"  >
+
+            <td  style="color: #0056b3;
+            text-decoration: underline;cursor: pointer;" (click)="getDetails(summeryDate,'txnId')"
+              matTooltip="Navigate to workFlow Details"
+            >{{summeryDate.transactionId}}</td>
+            <td style="color: #0056b3;
+            text-decoration: underline;cursor: pointer;"(click)="getDetails(summeryDate,'coId')"
+               matTooltip="Navigate to Audit-Trail Details"
+            >{{summeryDate.correlationId}}</td>
+            <td>{{summeryDate.msgId}}</td>
+           
+            
+            <td>{{summeryDate.startTime}}</td>
+            <td>{{summeryDate.endTime}}</td>
+            <td>{{calculateDiff(summeryDate.startTime,summeryDate.endTime)}}</td>
+            <td>{{summeryDate.requestStatus | uppercase}}</td>
+            <td>{{summeryDate.failureServiceNames | uppercase}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="9">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+</mat-card-content>
+</mat-card>
+ -->

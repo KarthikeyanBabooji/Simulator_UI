@@ -1,0 +1,15 @@
+    {
+      "ScalableDimension": "ecs:service:DesiredCount",
+      "PolicyName": "ecs-autoscaling",
+      "PolicyType": "TargetTrackingScaling",
+      "TargetTrackingScalingPolicyConfiguration":
+          {
+            "TargetValue": 40.0,
+            "PredefinedMetricSpecification":
+            {
+              "PredefinedMetricType": "ECSServiceAverageCPUUtilization"
+            }
+          },
+      "ServiceNamespace":"ecs",
+      "ResourceId": "service/ui/service-ui"
+    }

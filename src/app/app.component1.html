@@ -1,0 +1,369 @@
+<!-- Toolbar -->
+
+
+
+
+<!-- <app-side-nav></app-side-nav> -->
+
+
+
+<div class="toolbar" role="banner">
+
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome User</span>
+    <div class="spacer"></div>
+  
+  </div>
+  
+  <div class="content" role="main">
+  
+  
+  
+    <div style="
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  ">
+      <h2>Nextgen Payments - Simulator </h2>
+    
+  
+    </div>
+    <div>
+    
+      <mat-horizontal-stepper  labelPosition="bottom" [linear]="true" #stepper>
+        <mat-step >
+          <ng-template matStepLabel>Submit Request</ng-template>
+  
+       
+  
+          <br><br>
+          <div class="col-md-12">
+            <form [formGroup]="simulatorForm" class="login-container" (ngSubmit)="submit()">
+  
+             <!--  <div class="form-group">
+                <label for="email">DeploymentId :</label>
+                <input type="text" class="form-control" placeholder="Enter DeploymentId" id="email"
+                  formControlName="deploymentId" readonly>
+              </div>
+              <div class="form-group">
+                <label for="pwd">ProcessId:</label>
+                <input type="text" class="form-control" placeholder="Enter ProcessId" formControlName="processId"
+                  readonly>
+              </div> -->
+              <div class="row col-md-12">
+                <div class="col-md-4" style=" margin-left: -15px;">
+                
+                  <select class="browser-default custom-select custom-select-md mb-3">
+                    <option selected>Select Country Code</option>
+                    <option value="1">RU</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <select class="browser-default custom-select custom-select-md mb-3">
+                    <option selected>Type Of Payment</option>
+                    <option value="1">IP</option>
+                  </select>
+  
+                </div>
+                <div class="col-md-4">
+                  <select class="browser-default custom-select custom-select-md mb-3">
+                    <option selected>Request Type</option>
+                    <option value="1">AUTH</option>
+                  </select>
+                </div>
+              </div>
+  
+  
+              <div class="form-group">
+                <label>Request:</label>
+                <textarea class="form-control" rows="7" formControlName="requestParms"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </mat-step>
+        <mat-step   [completed]="isEditable">
+          <ng-template matStepLabel>Request Summary</ng-template>
+          <br><br>
+          <div style="
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+          ">
+           <h3>Request Summary</h3>
+  
+         </div>
+                 <hr>
+          
+    
+        <div class="form-group form-inline">
+            search By corelationId: <input class="form-control ml-2" type="text"  [(ngModel)]="filterQuery"/>
+         
+        </div>
+  
+        <div class="row">
+        
+  
+            <table class="table table-responsive table-striped table-bordered table-hover" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+                   [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                   <thead>     
+                  <tr>
+                   
+                    <th >
+                        <mfDefaultSorter by="transactionID">Txn ID</mfDefaultSorter>
+                    </th>
+                    <th >
+                        <mfDefaultSorter by="correlationID">Correlation Id</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="msgId">Msg ID</mfDefaultSorter>
+                    </th>
+                    
+                    <th>
+                        <mfDefaultSorter by="startTime">Start Date/Time</mfDefaultSorter>
+                      </th>
+                      <th>
+                        <mfDefaultSorter by="endTime">End Date/Time</mfDefaultSorter>
+                      </th>
+                      <th> 
+                        <mfDefaultSorter by="">Time taken(in sec)</mfDefaultSorter>
+                    </th>
+                    <th>
+                      <mfDefaultSorter by="requestStatus">Request Status</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="failureServiceNames">Service Name (failure service)</mfDefaultSorter>
+                      </th>
+                  
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let summeryDate of mf.data"  (click)="getDetails(summeryDate)">
+    
+                    <td>{{summeryDate.transactionID}}</td>
+                    <td>{{summeryDate.correlationID}}</td>
+                    <td>{{summeryDate.msgId}}</td>
+                   
+                    
+                    <td>{{summeryDate.startTime}}</td>
+                    <td>{{summeryDate.endTime}}</td>
+                    <td>{{calculateDiff(summeryDate.startTime,summeryDate.endTime)}}</td>
+                    <td>{{summeryDate.requestStatus | uppercase}}</td>
+                    <td>{{summeryDate.failureServiceNames | uppercase}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="9">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+  
+  
+  
+        </mat-step>
+        <mat-step   [completed]="isEditable" >
+          <ng-template matStepLabel>Workflow View</ng-template>
+          <br><br>
+          <div style="
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+                ">
+            <h3>Workflow View</h3>
+  
+          </div>
+           <div class="offset-1 col-md-10 borderDiv" >
+          <mat-horizontal-stepper #stepper>
+             
+            <mat-step label="Inbound Transformation"  >
+              <div class="col-md-12">
+                  <div *ngIf="lefttree && righttree">
+                    <div class=" row">  
+                    <div class=" col-md-6 ">
+                        <h4>Before Transformation</h4>
+                       
+                        </div>
+                        <div class=" col-md-6 ">
+                            <h4>After Transformation</h4>
+                           
+                            </div>
+                        
+                     </div>   
+                     <div>
+                    <differentiate 
+                    
+                        [attributeOrderIsImportant]="attributeOrderIsImportant"
+                        [leftSideObject]="righttree" 
+                        [rightSideObject]="lefttree"
+                        class="jsonDiff"
+                        ></differentiate>
+                      
+                      </div>  
+                  </div>   
+  
+              </div>
+  
+            </mat-step>
+            <mat-step label="Validation" >
+              <div class="col-md-12">
+                <div *ngIf="lefttreeValidation && righttreeValidation">
+                  <div class=" row">  
+                  <div class=" col-md-6 ">
+                      <h4>Before Transformation</h4>
+                     
+                      </div>
+                      <div class=" col-md-6 ">
+                          <h4>After Transformation</h4>
+                         
+                          </div>
+                      
+                   </div>   
+                  <differentiate 
+             
+                  
+                      [attributeOrderIsImportant]="attributeOrderIsImportant"
+                      [leftSideObject]="lefttreeValidation" 
+                      [rightSideObject]="righttreeValidation"
+                      class="jsonDiff"
+                      ></differentiate>
+                </div>   
+  
+            </div>
+      
+            </mat-step>
+            <mat-step label="Enrichment" >
+              <div *ngIf="lefttreeEnrichment && righttreeEnrichment">
+                <div class=" row">  
+                <div class=" col-md-6 ">
+                    <h4>Before Transformation</h4>
+                   
+                    </div>
+                    <div class=" col-md-6 ">
+                        <h4>After Transformation</h4>
+                       
+                        </div>
+                    
+                 </div>   
+                <differentiate 
+                    [attributeOrderIsImportant]="attributeOrderIsImportant"
+                    [leftSideObject]="lefttreeEnrichment" 
+                    [rightSideObject]="righttreeEnrichment"></differentiate>
+              </div>
+            </mat-step>
+            <mat-step label="Compliance">
+                <div *ngIf="lefttreeCompliance && righttreeCompliance">
+                    <div class=" row">  
+                    <div class=" col-md-6 ">
+                        <h4>Before Transformation</h4>
+                       
+                        </div>
+                        <div class=" col-md-6 ">
+                            <h4>After Transformation</h4>
+                           
+                            </div>
+                        
+                     </div>   
+                    <differentiate 
+                        [attributeOrderIsImportant]="attributeOrderIsImportant"
+                        [leftSideObject]="lefttreeCompliance" 
+                        [rightSideObject]="righttreeCompliance"></differentiate>
+                  </div>
+          
+            </mat-step>
+            <mat-step label="Outbound Transformation" >
+                <div *ngIf="lefttreetrans && righttreetrans">
+                    <div class=" row">  
+                    <div class=" col-md-6 ">
+                        <h4>Incomeing request</h4>
+                       
+                        </div>
+                        <div class=" col-md-6 ">
+                            <h4> Outgoing Response</h4>
+                           
+                            </div>
+                        
+                     </div>   
+                    <differentiate 
+                        [attributeOrderIsImportant]="attributeOrderIsImportant"
+                        [leftSideObject]="lefttreetrans" 
+                        [rightSideObject]="righttreetrans"></differentiate>
+                  </div>
+              </mat-step>
+          </mat-horizontal-stepper>
+  
+         </div> 
+        </mat-step>
+        <mat-step   >
+          <ng-template matStepLabel>Audit trail View</ng-template>
+        
+        
+  
+        <div class="row" *ngIf="auditData">
+        
+  
+            <table class="table table-striped table-bordered table-hover" [mfData]="auditData | dataFilter : filterQuery" #mf="mfDataTable"
+                   [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                   <thead>     
+                  <tr>
+                   
+                    <th >
+                        <mfDefaultSorter by="transactionId">Txn ID</mfDefaultSorter>
+                    </th>
+                    <th >
+                        <mfDefaultSorter by="serviceName">Service Name</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="activityDesc">Activity Desc</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="status">Status</mfDefaultSorter>
+                    </th>
+                    <th>
+                        <mfDefaultSorter by="timestamp">TimeStamp</mfDefaultSorter>
+                    </th>
+                 
+                         
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let auditDetails of mf.data" >
+    
+                    <td>{{auditDetails.transactionId}}</td>
+                    <td>{{auditDetails.serviceName}}</td>
+                    <td>{{auditDetails.activityDesc}}</td>
+                    <td>{{auditDetails.status | uppercase}}</td>
+                    <td>{{auditDetails.timestamp}}</td>
+                   
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="9">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+  
+  
+        </mat-step>
+  
+  
+       
+    
+      </mat-horizontal-stepper>
+    
+  
+    
+    
+    </div>
+  
+  </div>
+  
+
+
+<router-outlet></router-outlet>

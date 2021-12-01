@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+@import './../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
+
+html { height: 100%; }
+body { height:100%; margin: 0; 
+    font-family: 'Roboto Condensed', sans-serif!important; 
+    background: #f8f9fa !important; }
+
+.bg-simulator{
+    background: #0062A3;
+}
+.btn-simulator{
+    color: #fff !important;
+    background-color: #0062A3 !important;
+    border-color: #0062A3 !important;  
+}
+.bg-simulator-secondary{
+    background: #003558;
+}
+.btn-simulator-secondary{
+    color: #fff !important;
+    background-color: #003558 !important;
+    border-color: #003558 !important;  
+}
+.border-simulator-secondary{
+    border: 1px solid #003558;
+}
+.bg-table-header{
+    background: #003558;
+    color: #FFFFFF;
+}
+.search-icon{
+    width: 40px;
+    height: 40px;
+}
+.text-header{
+    color: #0062A3;
+}
+.chart-card{
+    margin-bottom: 20px;
+}

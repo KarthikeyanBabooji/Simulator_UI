@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-12" [class.col-lg-6]="!expand.line">
+        <mat-card class="chart-card">
+            
+            <mat-card-content>
+                <button type="button" class="btn btn-sm btn-outline-info float-right" (click)="expandToggle('line')">
+                    <fa-icon [icon]="faExpandAlt"></fa-icon>
+                  </button>
+        <chart [type]="typeLine" [data]="lineData" [options]="lineOptions"></chart>
+        </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="col-12" [class.col-lg-6]="!expand.duration">
+        <mat-card class="chart-card">
+            
+            <mat-card-content>
+                <button type="button" class="btn btn-sm btn-outline-info float-right" (click)="expandToggle('duration')">
+                    <fa-icon [icon]="faExpandAlt"></fa-icon>
+                  </button>
+        <chart [type]="typePie" [data]="durationData" [options]="durationOptions"></chart>
+        </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12" [class.col-lg-6]="!expand.perMonth">
+        <mat-card class="chart-card">
+            
+            <mat-card-content>
+                <button type="button" class="btn btn-sm btn-outline-info float-right" (click)="expandToggle('perMonth')">
+                    <fa-icon [icon]="faExpandAlt"></fa-icon>
+                  </button>
+        <chart [type]="typePie" [data]="perMonthData" [options]="perMonthOptions"></chart>
+        </mat-card-content>
+        </mat-card>
+    </div>
+</div>

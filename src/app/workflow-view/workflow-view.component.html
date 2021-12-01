@@ -1,0 +1,648 @@
+<div class="container bg-light">
+  <div class="row mx-0 mt-3">
+    <div class="col-12 col-md-12 p-0">
+      <h4 class="text-header m-0">VIEW FLOW</h4>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-light bg-light mt-3">
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search by Flow Name" aria-label="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav>
+
+  <div class="row m-0 bg-white rounded p-3 input-group box-shadow rounded mt-3">
+    <div class="col-12 col-md-12 p-0">
+      <table class="table table-striped table-bordered" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+           [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+           <thead class="bg-table-header">     
+            <tr style="text-align: center;">
+              <th>
+                  <mfDefaultSorter by="transactionId">S.No</mfDefaultSorter>
+              </th>
+              <th >
+                  <mfDefaultSorter by="correlationId">Flow Name</mfDefaultSorter>
+              </th>
+              <th>
+                  <mfDefaultSorter by="msgId">Applicable Service</mfDefaultSorter>
+              </th>
+              
+              <th>
+                Created Date/Time
+              </th>
+              <th>
+               Modified Date/Time
+              </th>
+        
+          </tr>
+          </thead>
+          <!-- <tbody>
+          <tr *ngFor="let summeryDate of mf.data"  >
+              <td  style="color: #0056b3;
+              text-decoration: underline;cursor: pointer;" (click)="getDetails(summeryDate,'txnId')"
+                matTooltip="Navigate to workFlow Details"
+              >{{summeryDate.transactionId}}</td>
+              <td style="color: #0056b3;
+              text-decoration: underline;cursor: pointer;"(click)="getDetails(summeryDate,'coId')"
+                 matTooltip="Navigate to Audit-Trail Details"
+              >{{summeryDate.correlationId}}</td>
+              <td>{{summeryDate.msgId}}</td>
+             
+              
+              <td>{{summeryDate.startTime}}</td>
+              <td>{{summeryDate.endTime}}</td>
+              <td>{{calculateDiff(summeryDate.startTime,summeryDate.endTime)}}</td>
+              <td>
+                <span *ngIf="summeryDate.requestStatus==='FAILURE' || summeryDate.requestStatus==='failure' "  placement="left"  tooltip="Failure Service: {{summeryDate.failureServiceNames}}"><i class="fa fa-exclamation-circle "style="font-size:20px;color:#4F0000" aria-hidden="true"></i></span>
+                <span *ngIf="summeryDate.requestStatus!=='FAILURE' && summeryDate.requestStatus!=='failure'"> {{summeryDate.requestStatus| uppercase }}</span>
+               
+               
+  
+              </td>
+             
+          </tr>
+         
+          </tbody> -->
+          <tbody>
+            <tr style="text-align: center;">
+              <td>01</td>
+              <td>Incoming Payments</td>
+              <td>Validation, Compliance</td>
+              <td>30/11/2021, 11:5:25 AM</td>
+              <td>30/11/2021, 11:5:25 AM</td>
+            </tr>
+            <tr style="text-align: center;">
+              <td>02</td>
+              <td>Outgoing Payments</td>
+              <td>Compliance, Transformation</td>
+              <td>01/12/2021, 3:30:25 PM</td>
+              <td>01/12/2021, 3:30:25 PM</td>
+            </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+              <td colspan="9">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+              </td>
+          </tr>
+          </tfoot>
+      </table>
+    </div>
+    
+  </div>
+
+
+  <!-- <form [formGroup]="searchCriteria" class="login-container" (ngSubmit)="onSubmit()">
+      <div class="row m-0 bg-white rounded py-2 input-group box-shadow">
+          <div class="col-12 col-md-3 px-1">
+            <input class="form-control ml-2 bg-light" type="text" placeholder="Transaction ID"  formControlName="transactionId"/>
+          </div>
+          <div class="col-12 col-md-3 px-1">
+            <input class="form-control ml-2 bg-light" type="text"  formControlName="corelationId" placeholder="Correlation ID" />
+          </div>
+          <div class="col-12 col-md-3 px-1">
+            <input class="form-control ml-2 bg-light" type="text" placeholder="Message ID" formControlName="msgId"/>
+          </div>
+          
+          <div class="col-12 col-md-1 px-1 d-flex justify-content-end">
+            <div class="rounded-circle p-2 bg-primary text-white search-icon mx-right mx-md-auto text-center" type="submit">
+              <i class="fa fa-search mx-auto"></i>
+            </div>
+          </div>
+      </div>
+  </form> -->
+  <!-- <div class="row m-0 p-2 bg-white rounded box-shadow mt-3 rounded">
+    <div (click)="showParentContent('workFlow')" type="button" class="col-3 px-0 d-flex align-items-center justify-content-center bg-primary py-2 text-white rounded">
+      <img src="../../assets/workflow.svg" />
+      <div class="d-inline-block pl-2">
+        <h3 class="m-0 font-weight-bold">WORKFLOW VIEW</h3>
+      </div>
+    </div>
+    <div class="col-6 p-0 d-flex align-items-center">
+      <div class="border-simulator-secondary bg-simulator-secondary w-100"></div>
+    </div>
+    <div (click)="showParentContent('finalOutput')" type="button" class="col-3 px-0 d-flex align-items-center justify-content-center bg-simulator-secondary py-2 text-white rounded">
+      <img src="../../assets/workflow-finaloutput.svg" />
+      <div class="pl-2">
+        <h3 class="m-0 font-weight-bold">FINAL OUTPUT</h3>
+      </div>
+    </div>
+  </div> -->
+ <!--  <div *ngIf="parentView === 'workFlow'" class="row m-0 p-2 bg-white rounded box-shadow mt-3 rounded"> -->
+  <!-- <div class="row m-0 p-2 bg-white rounded box-shadow mt-3 rounded">
+    <div class="col-3 p-1" (click)="showContent('inbound')" type="button">
+      <div [ngClass]="childView==='inbound' ? 'backActive' : 'backiActive'" class="d-flex align-items-center justify-content-center bg-simulator py-2 text-white rounded">
+        <img src="../../assets/workflow-inboundtransformation.svg" />
+        <div  class="pl-2 text-truncate">
+         <p class="m-0 font-weight-bold">1. INBOUND TRANSFORMATION</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-2 p-1" (click)="showContent('validation')" type="button">
+      <div [ngClass]="childView==='validation' ? 'backActive' : 'backiActive'" class="d-flex align-items-center justify-content-center bg-simulator py-2 text-white rounded">
+        <img src="../../assets/workflow-validation.svg" />
+        <div class="pl-2">
+          <p class="m-0 font-weight-bold">2. VALIDATION</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-2 p-1" (click)="showContent('enrichment')" type="button">
+      <div [ngClass]="childView==='enrichment' ? 'backActive' : 'backiActive'" class="d-flex align-items-center justify-content-center bg-simulator py-2 text-white rounded">
+        <img src="../../assets/workflow-enrichment.svg" />
+        <div class="pl-2">
+          <p class="m-0 font-weight-bold">3. ENRICHMENT</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-2 p-1" (click)="showContent('compliance')" type="button">
+      <div  [ngClass]="childView==='compliance' ? 'backActive' : 'backiActive'" class="d-flex align-items-center justify-content-center bg-simulator py-2 text-white rounded">
+        <img src="../../assets/workflow-compliance.svg" />
+        <div class="pl-2">
+          <p class="m-0 font-weight-bold">4. COMPLIANCE</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-3 p-1" (click)="showContent('outbound')" type="button">
+        <div [ngClass]="childView==='outbound' ? 'backActive' : 'backiActive'" class="d-flex align-items-center justify-content-center bg-simulator py-2 text-white rounded">
+            <img src="../../assets/workflow-finaloutput.svg" />
+          <div class="pl-2">
+            <p class="m-0 font-weight-bold">5. Outbound</p>
+          </div>
+        </div>
+      </div>
+  </div> -->
+<!--   
+    <div *ngIf="childView === 'inbound'" class="row m-0 p-2 bg-white rounded box-shadow mt-3 rounded">
+       <div class="col-12 p-0 mb-3">
+        <button class="btn btn-simulator-secondary" type="button">Final Output</button>
+      </div>
+      <div class="col-12 col-md-12 py-0 pl-0 pr-2">
+        <differentiate [attributeOrderIsImportant]="attributeOrderIsImportant" [leftSideObject]="lefttree"
+                  [rightSideObject]="righttree" class=" bg-light rounded w-100"></differentiate>
+
+      </div>
+      <div class="col-12 col-md-6 py-0 pl-2 pr-0">
+        <p class="font-weight-bold">After Transformation</p>
+        <textarea rows="25" class="bg-light rounded w-100"></textarea>
+      </div> 
+      <div class="col-12 col-md-12 p-0 mt-3 d-flex justify-content-end">
+          <mat-chip-list aria-label="Fish selection">
+              LEGEND:
+              <mat-chip style="
+              background-color: #4a4;
+          " selected>Attribute Added</mat-chip>
+              <mat-chip style="
+              background-color: #962323;
+          " selected>Object Added</mat-chip>
+              <mat-chip style="
+              background-color: #000060;
+          "  selected> Attribute Value Changed</mat-chip>
+            
+            </mat-chip-list>
+      </div>
+    </div>
+    <div *ngIf="childView === 'validation'" class="accordion mt-3" id="accordionSimulator">
+      <div>
+          <mat-accordion class="example-headers-align" multi>
+              <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                <mat-expansion-panel-header >
+                  <mat-panel-title>
+                     Summary
+                  </mat-panel-title>
+                
+                </mat-expansion-panel-header>
+            
+                <div class="row">
+                    <table class="table table-striped table-bordered table-hover" [mfData]="validationData | dataFilter : filterQuery" #mf="mfDataTable"
+                           [mfRowsOnPage]="5" [(mfSortBy)]="status" [(mfSortOrder)]="sortOrder">
+                           <thead class="bg-table-header">     
+                          <tr>
+                           
+                       
+                          
+                            <th>
+                                <mfDefaultSorter by="ruleId">Rule Id</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="name">Rule Name</mfDefaultSorter>
+                            </th>
+                            <th >
+                                <mfDefaultSorter by="ruleDesc">Rule Description</mfDefaultSorter>
+                            </th>
+                          
+                            
+                            <th>
+                                <mfDefaultSorter by="status">Status</mfDefaultSorter>
+                              </th>
+                    
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let summeryDate of mf.data.reverse()">
+                              <td>{{summeryDate.ruleId}}</td>
+                              <td>{{summeryDate.name}}</td>
+                            <td>{{summeryDate.ruleDesc}}</td>
+                          
+                            <td>
+                                <span *ngIf="summeryDate.status=='FAILURE'"  placement="left"  tooltip="Rule Failed"><i class="fa fa-exclamation-circle "style="font-size:20px;color:#4F0000" aria-hidden="true"></i></span>
+                                <span *ngIf="summeryDate.status!='FAILURE'"  >
+                                    {{summeryDate.status}}
+
+                                </span>
+                 
+                              
+                              </td>
+                  
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="9">
+                                <mfBootstrapPaginator ></mfBootstrapPaginator>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+              
+              
+            
+              </mat-expansion-panel>
+              <mat-expansion-panel hideToggle [expanded]="step === 1" (opened)="setStep(1)" >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                     Details
+                  </mat-panel-title>
+                
+                </mat-expansion-panel-header>
+                <div class="col-md-12">
+                    <div *ngIf="lefttreeValidation && righttreeValidation">
+                      <div class=" row">
+                        <div class=" col-md-6 ">
+                          <h4>Before Transformation</h4>
+        
+                        </div>
+                        <div class=" col-md-6 ">
+                          <h4>After Transformation</h4>
+                         
+                        </div>
+        
+                      </div>
+                      <differentiate [attributeOrderIsImportant]="attributeOrderIsImportant"
+                        [leftSideObject]="lefttreeValidation" [rightSideObject]="righttreeValidation" class=" bg-light rounded w-100">
+                      </differentiate>
+                    </div>
+                    <div style="
+                    margin-top: 9px;
+                    float: right;
+                ">
+              
+                        <mat-chip-list aria-label="Fish selection">
+                            LEGEND:
+                            <mat-chip style="
+                            background-color: #4a4;
+                        " selected>Attribute Added</mat-chip>
+                            <mat-chip style="
+                            background-color: #962323;
+                        " selected>Object Added</mat-chip>
+                            <mat-chip style="
+                            background-color: #000060;
+                        "  selected> Attribute Value Changed</mat-chip>
+                          
+                          </mat-chip-list>
+                        </div>
+                  </div>
+        
+  
+              </mat-expansion-panel>
+            
+          
+            </mat-accordion>
+        
+      </div>
+     
+    </div>
+    <div *ngIf="childView === 'enrichment'" class="accordion mt-3" id="accordionSimulator">
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                     Summary
+                  </mat-panel-title>
+                 
+                </mat-expansion-panel-header>
+                <div class="row" style="overflow: auto; height: 200px; width: 100%; padding: 0%;">       
+                  <table class="table table-striped table-bordered table-hover" [mfData]="enrichment | dataFilter : filterQuery" #mf="mfDataTable"
+                  [mfRowsOnPage]="5" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder" > 
+                    <thead class="bg-table-header " >
+                      <tr>
+                        <th *ngFor="let header of enrchmentColumns">
+                               {{header | lowercase}}
+                        </th> 
+                        <th ><mfDefaultSorter by="Object">Object</mfDefaultSorter></th>
+                        <th ><mfDefaultSorter by="Attribute">Attribute</mfDefaultSorter></th>
+                        <th ><mfDefaultSorter by="Attribute Value">Attribute Value</mfDefaultSorter></th>
+                        <th ><mfDefaultSorter by="Is New">Is New</mfDefaultSorter></th>
+                        <th></th>
+                        <th></th> 
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr *ngFor="let recipient of enrichmentData | keyvalue">
+                        <td>
+                           <div *ngFor="let data of enrichmentData[header]"> 
+                             <div> {{recipient.key}}</div>
+                         
+                        </td>
+                        <td>
+                          <table class="table  table-striped table-bordered table-hover" >
+                              <tr *ngFor="let data of recipient.value | keyvalue">
+                                <td>{{data.key}}</td>
+                              </tr>
+                           
+                            </table>
+                        </td>
+                        <td>
+                          <table class="table  table-striped table-bordered table-hover" >
+                               <tr *ngFor="let data of recipient.value | keyvalue">
+                                 <td>{{data.value}}</td>
+                               </tr>
+                             </table>
+                         </td>
+                         <td>
+                          <table class="table  table-striped table-bordered table-hover" >
+                               <tr *ngFor="let data of recipient.value | keyvalue">
+                                 <td >
+                                   <div class="d-flex align-items-center justify-content-center rounded">
+                                    <span style='font-size:large;'>&#10004;</span>
+                                   </div>
+                                  </td>
+                               </tr>
+                             </table>
+                         </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
+
+
+
+        </mat-expansion-panel>
+              
+            
+  
+
+      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+               Details
+            </mat-panel-title>
+            
+          </mat-expansion-panel-header>
+           <div *ngIf="lefttreeEnrichment && righttreeEnrichment">
+            <div class=" row">
+              <div class=" col-md-6 ">
+                <h4>Before Transformation</h4>
+
+              </div>
+              <div class=" col-md-6 ">
+                <h4>After Transformation</h4>
+
+              </div>
+
+            </div>
+            <differentiate [attributeOrderIsImportant]="attributeOrderIsImportant" [leftSideObject]="lefttreeEnrichment"
+              [rightSideObject]="righttreeEnrichment" class=" bg-light rounded w-100"></differentiate>
+          </div> 
+          <div style="
+          margin-top: 9px;
+          float: right;
+      ">
+    
+              <mat-chip-list aria-label="Fish selection">
+                  LEGEND:
+                  <mat-chip style="
+                  background-color: #4a4;
+              " selected>Attribute Added</mat-chip>
+                  <mat-chip style="
+                  background-color: #962323;
+              " selected>Object Added</mat-chip>
+                  <mat-chip style="
+                  background-color: #000060;
+              "  selected> Attribute Value Changed</mat-chip>
+                
+                </mat-chip-list>
+              </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+      </div>
+    <div *ngIf="childView === 'compliance'" class="accordion mt-3" id="accordionSimulator">
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                   Summary 
+                </mat-panel-title>
+             
+              </mat-expansion-panel-header>
+          
+              <div class="row" *ngIf="complianceData">
+                  <table class="table  table-striped table-bordered table-hover" [mfData]="complianceData" #mf="mfDataTable"
+                         [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                         <thead class="bg-table-header">     
+                        <tr>
+                           
+                        
+                       
+                         
+                          <th>
+                              <mfDefaultSorter by="complianceSystemName">Compliance System Name</mfDefaultSorter>
+                          </th>
+                          <th>
+                              <mfDefaultSorter by="response">Response</mfDefaultSorter>
+                            </th>
+                          <th>
+                              <mfDefaultSorter by="status">Status</mfDefaultSorter>
+                            </th>
+                  
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let compliance of mf.data">
+              
+                   
+                          
+                          <td>{{compliance.complianceSystemName}}</td>
+                          <td>{{compliance.response}}</td>
+                          <td>{{compliance.status}}</td>
+                          
+                
+                      </tr>
+                      </tbody>
+                      <tfoot>
+                      <tr>
+                          <td colspan="9">
+                              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                          </td>
+                      </tr>
+                      </tfoot>
+                  </table>
+              </div>
+            
+            
+          
+            </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Details
+                </mat-panel-title>
+              
+              </mat-expansion-panel-header>
+             
+              <div *ngIf="lefttreeCompliance && righttreeCompliance">
+                  <div class=" row">
+                    <div class=" col-md-6 ">
+                      <h4>Before Transformation</h4>
+      
+                    </div>
+                    <div class=" col-md-6 ">
+                      <h4>After Transformation</h4>
+                    </div>
+      
+                  </div>
+                  <differentiate [attributeOrderIsImportant]="attributeOrderIsImportant" [leftSideObject]="lefttreeCompliance"
+                    [rightSideObject]="righttreeCompliance" class=" bg-light rounded w-100"></differentiate>
+                </div>
+                <div style="
+                margin-top: 9px;
+                float: right;
+            ">
+          
+                    <mat-chip-list aria-label="Fish selection">
+                        LEGEND:
+                        <mat-chip style="
+                        background-color: #4a4;
+                        
+                    " selected>Attribute Added</mat-chip>
+                        <mat-chip style="
+                        background-color: #962323;
+                    " selected>Object Added</mat-chip>
+                        <mat-chip style="
+                        background-color: #000060;
+                    "  selected> Attribute Value Changed</mat-chip>
+                      
+                      </mat-chip-list>
+                    </div>
+
+            </mat-expansion-panel>
+          
+        
+          </mat-accordion>
+
+
+
+    </div> -->
+  
+  
+  <!-- <div *ngIf="childView === 'outbound'" class="row m-0 p-2 bg-white rounded box-shadow mt-3 rounded">
+    
+    <div class="col-12 p-0 mb-3" *ngIf="outboundData">
+        <table class="table  table-striped table-bordered table-hover" [mfData]="outboundData" #mf="mfDataTable"
+               [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+               <thead class="bg-table-header">     
+              <tr>
+                 
+                  <th>
+                      <mfDefaultSorter by="ackStatus">Ack Status</mfDefaultSorter>
+                    </th>
+                <th>
+                    <mfDefaultSorter by="reasonCode">Reason Code</mfDefaultSorter>
+                </th>
+                <th>
+                    <mfDefaultSorter by="reasonDesc">Reason Description</mfDefaultSorter>
+                  </th>
+            
+        
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let outbound of mf.data">
+    
+                <td>{{outbound.ackStatus}}</td>
+                <td>{{outbound.reasonCode}}</td>
+                <td>{{outbound.reasonDesc}}</td>
+                
+              
+                
+      
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="9">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+  
+    <div class="col-12 p-0 mb-3" >
+      <span style="float: right;">
+      <i class="fa fa-window-maximize" style=" cursor:pointer;color: #0062A3;" (click)="clickOnNewWindoww()" aria-hidden="true"></i>
+        </span>
+    </div>
+  <div class="col-12 col-md-6 py-0 pl-0 pr-2" style="
+      word-break: break-word;white-space: break-spaces;
+     ">
+        <p class="font-weight-bold">Input Message</p>
+        <textarea rows="15" class="bg-light rounded w-100">
+            {{lefttreetrans }}
+        </textarea>
+      </div>
+      <div class="col-12 col-md-6 py-0 pl-2 pr-0" style="
+      word-break: break-word;white-space: break-spaces;
+     ">
+        <p class="font-weight-bold">Output Message</p>
+        <textarea rows="15" class="bg-light rounded w-100">
+            {{righttreetrans }}
+        </textarea>
+      </div>
+ 
+  </div> -->
+  
+</div>
+
+
+
+
+<window *ngIf="simulatorService.showPortal">
+  
+  <div style="    display: flex;
+  flex-wrap: wrap;
+  border: 1px solid gray;
+  font-family: monospace;
+  ">
+    <div  style="
+    word-break: break-word;white-space: break-spaces;
+    flex: 0 0 50%;
+        max-width: 49%;border-right: 1pxx solid gray;
+   ">
+      <h3>Input Message</h3>
+  <hr>
+      {{lefttreetrans }}
+    </div>
+    <div style="
+    word-break: break-word;white-space: break-spaces;
+    flex: 0 0 51%;
+        max-width: 50%;
+        border-left: 1px solid gray;
+   ">
+      <h3>Output Message</h3> 
+      <hr>
+      {{righttreetrans }}
+    </div>
+  </div>
+</window>
